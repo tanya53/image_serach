@@ -15,28 +15,14 @@
    console.log("query value ",$("#query").val());
    
    function updateClickCount (data) {
-
+      console.log("point 1 data",data);
       var clickObj = JSON.parse(data);
+      console.log("data",data);
+      console.log(clickObj.query);
       if (clickObj.query != undefined){
-         console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@");
-         console.log("in if ",clickObj.query,clickObj.query.length);
+         console.log("in if ",clickObj.query);
          console.log("new value ",$('#query').val());
-         var container = document.getElementById("results");
-         $('#results').empty();
-         console.log("child before fore ",$('#results').children().length);
-
-         for (var i =0;i<clickObj.query.length;i++){
-            console.log("obj ",clickObj.query[i]);
-            var img = document.createElement('img');
-            console.log("********",clickObj.query[i][1]);
-            img.src = clickObj.query[i][0];
-            img.alt = clickObj.query[i][1];
-            img.width = 200;
-            img.className = 'img-responsive img-thumbnail';
-            container.appendChild(img);
-            console.log("childrean ",$('#results').children().length);
-         //$('#results').html("<div class='col-xs-12 col-sm-6 col-md-4'><div class='thumbnail'> <img class='img-responsive img-thumbnail' src ="+clickObj.query[i]+"></div></div>");
-      }
+         $('#results').html("<div class='col-xs-12 col-sm-6 col-md-4'><div class='thumbnail'> <img class='img-responsive img-thumbnail' src ="+clickObj.query+"></div></div>");
       }
    }
    
@@ -57,15 +43,13 @@
    retImage.addEventListener('click', function () {
       
       console.log("we are in click for image search");
-      console.log($("#offset").val());
-      console.log($("#query").val());
-      var offset = $("#offset").val();
-      if ($("#query").val() === "") {$("#query").val("tiger");}
-        
-      //apiUrl = appUrl + '/imagesearch/' + $("#query").val() + " "+offset;
-      apiUrl = appUrl + '/imagesearch?query='+$("#query").val()+'&offset='+offset;
+      apiUrl = appUrl + '/imagesearch/' + $("#query").val();
       console.log("apiUrl 1",apiUrl);
 
+    /* ajaxFunctions.ajaxRequest('GET', apiUrl, function () {
+        console.log("we are in ajaxRequest again");
+        console.log("apiUrl 2",apiUrl);
+        ajaxFunctions.ajaxRequest('GET',apiUrl,updateClickCount);*/
        ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
      
    }, false);
